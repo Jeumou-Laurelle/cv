@@ -15,7 +15,7 @@
   "skills": {
     "Frontend": ["HTML5", "CSS3", "JavaScript", "Flask", "Bootstrap", "jQuery"],
     "Backend": ["PHP", "Python (Flask)", "MySQL"],
-    "Outils": ["Github", "VS Code", "Canva", "Flask", "Vercel"]
+    "Outils": ["Github", "VS Code", "Canva", "Flask", "Vercel", "Wordpress"]
   },
   "experience": [
     {
