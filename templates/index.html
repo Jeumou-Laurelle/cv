@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="hero" class="hero">
+    <div class="container hero-grid">
+        <div id="about" class="hero-content">
+            <span class="welcome reveal">Bienvenue, je suis</span>
+            <h1 class="reveal" style="transition-delay: 0.1s;">{{ profile.name }}</h1>
+            <h2 class="reveal" style="transition-delay: 0.2s;">{{ profile.title }}</h2>
+            <p class="reveal" style="transition-delay: 0.3s;">{{ profile.bio }}</p>
+            
+            <div class="social-icons reveal" style="transition-delay: 0.4s;">
+                <a href="{{ profile.socials.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="{{ profile.socials.whatsapp }}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="mailto:{{ profile.email }}"><i class="far fa-envelope"></i></a>
+            </div>
+
+            <div class="hero-btns reveal" style="margin-top: 2rem; transition-delay: 0.5s;">
+                <a href="#projects" class="btn btn-primary">Mes Projets <i class="fas fa-arrow-right"></i></a>
+                <a href="/download-cv" class="btn btn-secondary">Télécharger CV <i class="fas fa-download"></i></a>
+            </div>
+        </div>
+        <div class="hero-image-wrapper reveal">
+            <div class="image-frame">
+                <img src="/static/img/profile.png" alt="{{ profile.name }}">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience & Skills Section -->
+<section id="experience" class="section">
+    <div class="container exp-skills-grid">
+        <!-- Experience Column -->
+        <div class="exp-col">
+            <div class="tabs reveal">
+                <button class="tab-btn active" onclick="openTab(event, 'exp-content')">Expérience</button>
+                <button class="tab-btn" onclick="openTab(event, 'edu-content')">Formation</button>
+            </div>
+
+            <div id="exp-content" class="tab-content active">
+                <h2 class="section-title reveal">Expérience</h2>
+                <p class="section-subtitle reveal">Mon parcours professionnel</p>
+                <div class="underline reveal"></div>
+                
+                <div class="timeline">
+                    {% for exp in experience %}
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-header">
+                            <h3>{{ exp.role }}</h3>
+                            <span class="badge">{{ exp.period }}</span>
+                        </div>
+                        <div class="company"><i class="fas fa-briefcase"></i> {{ exp.company }}</div>
+                        <ul>
+                            {% for point in exp.description %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="edu-content" class="tab-content">
+                <h2 class="section-title">Formation</h2>
+                <p class="section-subtitle">Mon cursus académique</p>
+                <div class="underline"></div>
+                <div class="timeline">
+                    {% for edu in education %}
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-header">
+                            <h3>{{ edu.degree }}</h3>
+                            <span class="badge">{{ edu.period }}</span>
+                        </div>
+                        <div class="company"><i class="fas fa-graduation-cap"></i> {{ edu.school }}</div>
+                        <p style="color: var(--gray);">{{ edu.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Column -->
+        <div class="skills-col stagger-container">
+            <h2 class="section-title reveal">Compétences Techniques</h2>
+            <p class="section-subtitle reveal">Technologies avec lesquelles je travaille</p>
+            <div class="underline reveal"></div>
+
+            <div class="skill-grid">
+                {% for category, items in skills.items() %}
+                <div class="skill-card reveal" style="--delay: {{ loop.index }}">
+                    <h3>{{ category }}</h3>
+                    <div class="tags">
+                        {% for tag in items %}
+                        <span class="tag reveal" style="--delay: {{ loop.index + 5 }}">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="section">
+    <div class="container">
+        <h2 class="section-title reveal">Projets en vedette</h2>
+        <p class="section-subtitle reveal">Quelques réalisations</p>
+        <div class="underline reveal"></div>
+
+        <div class="project-grid stagger-container">
+            {% for project in projects %}
+            <div class="project-card reveal" style="--delay: {{ loop.index }}">
+                <img src="{{ project.image }}" alt="{{ project.title }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section">
+    <div class="container">
+        <h2 class="section-title reveal">Contactez-moi</h2>
+        <p class="section-subtitle reveal">Travaillons ensemble</p>
+        <div class="underline reveal"></div>
+
+        <h3 class="reveal" style="font-size: 2rem; margin-bottom: 2rem;">Parlons de votre prochain projet</h3>
+        <p class="reveal" style="color: var(--gray); margin-bottom: 3rem;">N'hésitez pas à me contacter pour des collaborations ou des opportunités.</p>
+
+        <div class="contact-grid">
+            <div class="contact-card reveal">
+                <div class="contact-icon"><i class="far fa-envelope"></i></div>
+                <div class="contact-info">
+                    <h4>Envoyez un email à</h4>
+                    <p>{{ profile.email }}</p>
+                </div>
+            </div>
+            <div class="contact-card reveal">
+                <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                <div class="contact-info">
+                    <h4>Contactez sur WhatsApp</h4>
+                    <p>{{ profile.phone }}</p>
+                </div>
+            </div>
+            <div class="contact-card reveal">
+                <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="contact-info">
+                    <h4>Basé à</h4>
+                    <p>{{ profile.location }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
